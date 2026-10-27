@@ -6,6 +6,6 @@ https://yht5582-source.github.io/MDRO/
 
 - 選藥邏輯在 `index.html` 的 `/*ENGINE-START*/ … /*ENGINE-END*/` 區塊（`MDRO.recommend()`）
 - 測試：`node tests.cjs`
-- 健保給付欄位為查核提示，條號與給付條件須以健保署當日公告原文為準
+- 健保給付欄位依藥品給付規定第十節 抗微生物劑（115.07.23 更新）原文摘要，2026-10-27 核對；正式申報以健保署當日公告為準
 
 教學與臨床輔助，非自動處方。
