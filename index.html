@@ -38,7 +38,7 @@ const meds=[
 ['Meropenem / imipenem','ESBL 侵襲性感染（重症優先）；ertapenem-R、meropenem-S 非 carbapenemase CRE 延長輸注','10.5.1：培養證實對其他抗微生物製劑均抗藥而 carbapenem 感受性；或對其他藥物過敏；或嚴重感染經其他廣效非第一線藥物無法控制；或經感染症專科醫師會診（附會診紀錄）','CKD／HD／CRRT 需調整，留意神經毒性（imipenem 較高）'],
 ['Ertapenem','穩定 ESBL 感染；不涵蓋 Pseudomonas／Acinetobacter','10.5.2：限中重度感染且經其他藥物無法控制之複雜性腹腔內感染、感染性肺炎、急性骨盆感染；或經感染症專科醫師會診。⚠ cUTI 不在列舉適應症內','HD／CKD 需個別調整；高蛋白結合，低白蛋白重症不建議'],
 ['Cefepime','AmpC（MIC ≤8 且無 ESBL）；具感受性的 P. aeruginosa；ESBL cUTI 與泌尿道以外感染不建議','第十節無專屬條文；依 10.1 通則（非第一線藥物：培養／藥敏或 10.1.6 重症、院內感染、感染科會診等條件）','高度警覺腎衰竭相關神經毒性'],
-['Cefepime-enmetazobactam','ESBL cUTI（TMP-SMX／FQ 不可用時，與 carbapenem 同等）；ESBL 泌尿道以外替代，臨床資料有限','本頁 2026-10-27 條文核對未包含此藥；台灣收載與健保給付待核實，不推定給付','須依腎功能／透析調整；留意 cefepime 神經毒性'],
+['Cefepime-enmetazobactam','ESBL cUTI（TMP-SMX／FQ 不可用時，與 carbapenem 同等）；ESBL 泌尿道以外替代，臨床資料有限','第十節無專屬條文（2026-11-01 核對）；台灣收載與健保給付待核實，不推定給付','須依腎功能／透析調整；留意 cefepime 神經毒性'],
 ['Ceftazidime-avibactam','KPC（次選）、OXA-48-like（首選）CRE；DTR-PA；搭配 aztreonam 處理 MBL','10.3.6：感染症專科醫師會診確認 CR-GNB 感染可能或明確證據；cIAI、cUTI、院內肺炎或其他疑 CR 感染；經驗使用後培養非 CR 限 7 天；不得超過 14 天（延長需再照會）','依腎功能／HD／CRRT 調整'],
 ['Ceftolozane-tazobactam','DTR P. aeruginosa（肺炎首選）；cIAI 需合併 metronidazole；KPC／MBL 不建議','10.3.7：18 歲以上、致病菌感受性；cIAI（併 metronidazole）、cUTI 含腎盂腎炎、院內肺炎含 VAP；需感染科醫師會診同意（附會診報告）','需按腎功能／透析調整'],
 ['Cefiderocol','MBL CRE（首選）；MBL DTR-PA（首選）；S. maltophilia（首選）；CRAB 合併／橋接','10.3.8（115/8/1 新增）：18 歲以上、對 cefiderocol 感受性之 MDR GNB；cUTI、HAP／VAP 或其他疑似／證實 MDR GNB 感染；感染科會診，每滿 7 天再會診，療程原則 ≤14 天','HD／CRRT 劑量須按實際清除條件；CrCl ≥120 需加量'],
@@ -266,7 +266,7 @@ right:[
  {t:'MRSA',k:[{b:'菌血症',d:'Vancomycin（AUC 400–600）或 daptomycin；評估心內膜炎、移除導管'},{b:'肺炎',d:'Vancomycin 或 linezolid；不用 daptomycin'},{b:'皮膚軟組織',d:'膿瘍切開引流為主；口服 TMP-SMX 或 doxycycline'}]},
  {t:'VRE',k:[{b:'菌血症',d:'高劑量 daptomycin（8–12 mg/kg）或 linezolid'},{b:'肺炎',d:'Linezolid'},{b:'膀胱炎',d:'Nitrofurantoin、fosfomycin；ampicillin S 時 amoxicillin／ampicillin'}]},
  {t:'腎臟與透析',k:[{b:'CKD／AKI',d:'依 Cockcroft–Gault CrCl 動態調整；首劑通常不減'},{b:'HD',d:'透析日於透析後給藥；cefepime 留意神經毒性'},{b:'PD',d:'系統性與腹膜內用藥分開考量；腹膜炎依 ISPD'},{b:'CRRT',d:'依 effluent rate、濾器、殘餘腎功能調整'}]},
- {t:'健保與重評估',k:[{b:'會診條文',d:'CZA 10.3.6、C/T 10.3.7、cefiderocol 10.3.8、IMR 10.5.4'},{b:'無專屬條文',w:1,d:'Meropenem-vaborbactam、aztreonam-avibactam、sulbactam-durlobactam、eravacycline：不推定給付'},{b:'尚未核對條文',w:1,d:'Cefepime-enmetazobactam：不推定給付'},{b:'48–72 小時',d:'看治療反應、藥敏與感染源控制，降階並決定療程'}]}
+ {t:'健保與重評估',k:[{b:'會診條文',d:'CZA 10.3.6、C/T 10.3.7、cefiderocol 10.3.8、IMR 10.5.4'},{b:'無專屬條文',w:1,d:'Meropenem-vaborbactam、aztreonam-avibactam、sulbactam-durlobactam、eravacycline、cefepime-enmetazobactam：不推定給付'},{b:'48–72 小時',d:'看治療反應、藥敏與感染源控制，降階並決定療程'}]}
 ]};
 /*MAP-END*/
 const LV=(id,v)=>{const o=[...$(id).options].find(x=>x.value===v);return o?o.text:v};

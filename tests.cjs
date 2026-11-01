@@ -95,7 +95,7 @@ const meds = new Function(medsSrc + '\nreturn meds;')();
 const nhi = name => (meds.find(m => m[0] === name) || [])[2] || '';
 for (const [drug, art] of [['Meropenem / imipenem', '10.5.1'], ['Ertapenem', '10.5.2'], ['Ceftazidime-avibactam', '10.3.6'], ['Ceftolozane-tazobactam', '10.3.7'], ['Cefiderocol', '10.3.8'], ['Imipenem-relebactam', '10.5.4'], ['Tigecycline', '10.8.5'], ['Minocycline', '10.8.9'], ['Vancomycin / teicoplanin', '10.8.1.1'], ['Linezolid', '10.8.3'], ['Daptomycin', '10.8.7'], ['Levofloxacin', '10.8.2.3'], ['Colistin', '10.8.6'], ['Polymyxin B', '10.8.10']])
   t(`NHI ${drug} cites ${art}`, nhi(drug).startsWith(art));
-for (const drug of ['Meropenem-vaborbactam', 'Aztreonam-avibactam', 'Sulbactam-durlobactam', 'Eravacycline'])
+for (const drug of ['Meropenem-vaborbactam', 'Aztreonam-avibactam', 'Sulbactam-durlobactam', 'Eravacycline', 'Cefepime-enmetazobactam'])
   t(`NHI ${drug} not presumed covered`, /無專屬條文/.test(nhi(drug)) && /待核實/.test(nhi(drug)));
 t('NHI cefepime-enmetazobactam not presumed covered', /待核實/.test(nhi('Cefepime-enmetazobactam')) && /不推定給付/.test(nhi('Cefepime-enmetazobactam')));
 t('NHI ertapenem flags cUTI gap', /cUTI 不在/.test(nhi('Ertapenem')));
