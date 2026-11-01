@@ -90,5 +90,36 @@ t('NHI ertapenem flags cUTI gap', /cUTI 不在/.test(nhi('Ertapenem')));
 t('NHI daptomycin flags VRE bacteremia gap', /VRE 菌血症未列舉/.test(nhi('Daptomycin')));
 t('NHI polymyxin B not for UTI', /不適用於 UTI/.test(nhi('Polymyxin B')));
 
+// Demo cases: engine output and NHI articles must match what each case teaches
+const DEMO = new Function(html.split('/*DEMO-START*/')[1].split('/*DEMO-END*/')[0] + '\nreturn DEMO;')();
+t('6 demo cases', DEMO.length === 6);
+t('demo case ids unique', new Set(DEMO.map(c => c.id)).size === 6);
+for (const c of DEMO) {
+  const r = MDRO.recommend(c.input);
+  t(`${c.id} engine does not stop`, r.stop === null);
+  for (const k of ['pref', 'alt', 'avoid'])
+    for (const s of (c.expect[k] || [])) t(`${c.id} ${k} has ${s}`, txt(r[k]).toLowerCase().includes(s.toLowerCase()));
+  for (const [drug, art] of c.cite) t(`${c.id} cites ${drug} ${art}`, nhi(drug).startsWith(art) && c.nhi.includes(art.startsWith('10.') ? art : drug));
+  for (const f of ['clin', 'sev', 'site', 'bug', 'mech', 'kidney', 'susc']) t(`${c.id} input ${f}`, !!c.input[f]);
+  for (const [id, v] of [['clin', c.input.clin], ['severity', c.input.sev], ['site', c.input.site], ['mech', c.input.mech], ['kidney', c.input.kidney], ['suscept', c.input.susc]])
+    t(`${c.id} ${id}=${v} is a wizard option`, new RegExp(`id="${id}">.*?value="${v}"`).test(html));
+  for (const f of ['who', 'micro', 'nhi', 'course', 'pearl']) t(`${c.id} has ${f}`, !!c[f]);
+  t(`${c.id} has steps`, c.think.length >= 3 && c.plan.length >= 3);
+}
+t('demo covers 6 organisms', new Set(DEMO.map(c => c.input.bug)).size === 6);
+
+// Mind map: first-line drugs agree with the engine
+const MAP = new Function(html.split('/*MAP-START*/')[1].split('/*MAP-END*/')[0] + '\nreturn MAP;')();
+const mapTxt = title => MAP.right.find(n => n.t === title).k.map(k => k.b + ' ' + k.d).join(' | ');
+for (const [title, o] of [
+  ['ESBL-E', { bug: 'esbl', site: 'cystitis', sev: 'stable' }], ['AmpC-E', { bug: 'ampc' }], ['CRE', { bug: 'cre', mech: 'kpc' }], ['CRE', { bug: 'cre', mech: 'ndm' }], ['CRE', { bug: 'cre', mech: 'oxa' }],
+  ['DTR-PA', { bug: 'pa', site: 'pna' }], ['DTR-PA', { bug: 'pa', mech: 'ndm' }], ['CRAB', { bug: 'crab' }], ['S. maltophilia', { bug: 'sm' }], ['MRSA', { bug: 'mrsa', site: 'pna' }], ['VRE', { bug: 'vre', site: 'pna' }]
+]) {
+  const first = rec(o).pref[0].split(/[（ ]/)[0];
+  t(`map ${title} has ${first}`, mapTxt(title).includes(first));
+}
+t('map has both sides', MAP.left.length >= 4 && MAP.right.length >= 8);
+for (const art of ['10.3.6', '10.3.7', '10.3.8', '10.5.4']) t(`map NHI ${art}`, mapTxt('健保與重評估').includes(art));
+
 console.log(`${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);
