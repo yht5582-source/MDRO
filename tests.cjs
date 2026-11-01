@@ -17,6 +17,17 @@ t('ESBL severe cUTI carbapenem', /Meropenem/.test(txt(rec({ site: 'cuti', sev: '
 t('ESBL bsi avoid pip-tazo', /Piperacillin/.test(txt(rec({}).avoid)));
 t('ESBL critical meropenem/imipenem first', /Meropenem 或 imipenem/.test(rec({ sev: 'shock' }).pref[0]));
 t('ESBL stable IAI ertapenem ok', /Ertapenem/.test(rec({ site: 'iai', sev: 'stable' }).pref[0]));
+// Cefepime-enmetazobactam (IDSA 2026 Q1.1–1.3, 1.5, 2.3)
+const FPE = /Cefepime-enmetazobactam/i;
+t('FPE cystitis alt only', FPE.test(txt(rec({ site: 'cystitis', sev: 'stable' }).alt)) && !FPE.test(txt(rec({ site: 'cystitis', sev: 'stable' }).pref)));
+t('FPE stable cUTI after TMP-SMX/FQ', !FPE.test(rec({ site: 'cuti', sev: 'stable' }).pref[0]) && FPE.test(rec({ site: 'cuti', sev: 'stable' }).pref[1]));
+t('FPE severe cUTI preferred', FPE.test(txt(rec({ site: 'cuti', sev: 'severe' }).pref)));
+for (const site of ['bsi', 'pna', 'iai']) for (const sev of ['stable', 'severe']) t(`FPE ${site} ${sev} alt only`, FPE.test(txt(rec({ site, sev }).alt)) && !FPE.test(txt(rec({ site, sev }).pref)));
+t('ESBL cUTI avoid cefepime alone', /Cefepime 單藥/.test(txt(rec({ site: 'cuti', sev: 'stable' }).avoid)));
+t('ESBL bsi avoid cefepime alone', /Cefepime 單藥/.test(txt(rec({}).avoid)));
+t('ESBL cystitis does not avoid cefepime', !/Cefepime 單藥/.test(txt(rec({ site: 'cystitis', sev: 'stable' }).avoid)));
+t('AmpC keeps cefepime first, FPE reserved', /^Cefepime（/.test(rec({ bug: 'ampc' }).pref[0]) && /保留/.test(txt(rec({ bug: 'ampc' }).alt)));
+t('FPE renal note via cefepime', rec({ site: 'cuti', sev: 'severe', kidney: 'hd' }).renal.some(x => /Cefepime/.test(x)));
 // AmpC
 t('AmpC invasive cefepime MIC ≤8', /Cefepime.*≤8/.test(rec({ bug: 'ampc' }).pref[0]));
 t('AmpC invasive avoid ceftriaxone', /Ceftriaxone/.test(txt(rec({ bug: 'ampc' }).avoid)));
@@ -86,6 +97,7 @@ for (const [drug, art] of [['Meropenem / imipenem', '10.5.1'], ['Ertapenem', '10
   t(`NHI ${drug} cites ${art}`, nhi(drug).startsWith(art));
 for (const drug of ['Meropenem-vaborbactam', 'Aztreonam-avibactam', 'Sulbactam-durlobactam', 'Eravacycline'])
   t(`NHI ${drug} not presumed covered`, /無專屬條文/.test(nhi(drug)) && /待核實/.test(nhi(drug)));
+t('NHI cefepime-enmetazobactam not presumed covered', /待核實/.test(nhi('Cefepime-enmetazobactam')) && /不推定給付/.test(nhi('Cefepime-enmetazobactam')));
 t('NHI ertapenem flags cUTI gap', /cUTI 不在/.test(nhi('Ertapenem')));
 t('NHI daptomycin flags VRE bacteremia gap', /VRE 菌血症未列舉/.test(nhi('Daptomycin')));
 t('NHI polymyxin B not for UTI', /不適用於 UTI/.test(nhi('Polymyxin B')));

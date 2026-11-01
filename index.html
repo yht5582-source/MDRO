@@ -24,7 +24,7 @@
 </main><footer class="footer">MDRO Taiwan Clinical Decision Support · 2026-11-01 · 教學暨醫療專業人員輔助工具 · 無病人資訊上傳功能</footer>
 <script>
 const bugs=[
-{id:'esbl',short:'ESBL-E',name:'ESBL-producing Enterobacterales',tw:'E. coli、Klebsiella pneumoniae',risk:'尿路感染、菌血症、腹腔感染',diagnosis:'依培養、第三代 cephalosporin 抗藥表現及實驗室 ESBL 判讀；不等同 CRE。',rx:'單純膀胱炎：nitrofurantoin、TMP-SMX 或單劑 aminoglycoside；cUTI：感受性時 TMP-SMX／ciprofloxacin／levofloxacin，不可用時 carbapenem；泌尿道以外感染：ertapenem、meropenem 或 imipenem（重症／低白蛋白優先 meropenem／imipenem），改善後依藥敏口服降階。',caution:'Piperacillin-tazobactam 不建議用於泌尿道以外的 ESBL 感染（即使報告 susceptible）；nitrofurantoin 不適合腎盂腎炎或菌血症。'},
+{id:'esbl',short:'ESBL-E',name:'ESBL-producing Enterobacterales',tw:'E. coli、Klebsiella pneumoniae',risk:'尿路感染、菌血症、腹腔感染',diagnosis:'依培養、第三代 cephalosporin 抗藥表現及實驗室 ESBL 判讀；不等同 CRE。',rx:'單純膀胱炎：nitrofurantoin、TMP-SMX 或單劑 aminoglycoside；cUTI：感受性時 TMP-SMX／ciprofloxacin／levofloxacin，不可用時 cefepime-enmetazobactam 或 carbapenem；泌尿道以外感染：ertapenem、meropenem 或 imipenem（重症／低白蛋白優先 meropenem／imipenem），cefepime-enmetazobactam 為替代，改善後依藥敏口服降階。',caution:'Piperacillin-tazobactam 不建議用於泌尿道以外的 ESBL 感染（即使報告 susceptible）；cefepime 單藥不建議用於 cUTI 或泌尿道以外感染（即使報告 susceptible）；nitrofurantoin 不適合腎盂腎炎或菌血症。'},
 {id:'ampc',short:'AmpC-E',name:'AmpC-risk Enterobacterales',tw:'Enterobacter cloacae complex、Klebsiella aerogenes、Citrobacter freundii、Hafnia alvei',risk:'院內菌血症、肺炎、導管相關感染',diagnosis:'辨別中度風險可誘導 AmpC 的菌種；第三代 cephalosporin 可在治療期間失效。',rx:'侵襲性感染：cefepime（MIC ≤8 µg/mL 且未檢出 ESBL 基因）；cefepime 不適用或 ESBL 共存時用 carbapenem；單純膀胱炎依藥敏選口服藥。',caution:'侵襲性感染不建議 ceftriaxone／cefotaxime／ceftazidime 或 piperacillin-tazobactam；非重症且已改善、已控源者以 ceftriaxone 完成療程或可接受。'},
 {id:'cre',short:'CRE',name:'Carbapenem-resistant Enterobacterales (CRE)',tw:'K. pneumoniae、E. coli、Enterobacter spp. 等',risk:'重症肺炎、cUTI、菌血症',diagnosis:'確認 carbapenem MIC 並盡可能做 KPC／MBL／OXA-48 分型；機制決定用藥。',rx:'KPC：meropenem-vaborbactam（略優先）、ceftazidime-avibactam、imipenem-relebactam；NDM/VIM/IMP：aztreonam-avibactam（略優先）或 cefiderocol，不可得時 ceftazidime-avibactam + aztreonam；OXA-48-like：ceftazidime-avibactam；ertapenem-R／meropenem-S 非 carbapenemase：延長輸注 meropenem 或 imipenem。',caution:'Ceftazidime-avibactam、meropenem-vaborbactam、imipenem-relebactam 不抑制 MBL；OXA-48-like 不建議 meropenem-vaborbactam／imipenem-relebactam；tigecycline／eravacycline 不用於菌血症或尿路感染。'},
 {id:'pa',short:'DTR-PA',name:'MDR／DTR Pseudomonas aeruginosa',tw:'綠膿桿菌',risk:'VAP、HAP、複雜性 UTI、傷口感染',diagnosis:'DTR 指對 piperacillin-tazobactam、ceftazidime、cefepime、aztreonam、meropenem、imipenem、ciprofloxacin、levofloxacin 皆非感受性；carbapenem-resistant 不等同 DTR。',rx:'仍對傳統抗綠膿 β-lactam 感受性時用傳統藥物（延長輸注）。DTR 泌尿道以外：ceftazidime-avibactam、ceftolozane-tazobactam、imipenem-relebactam（肺炎首選 ceftolozane-tazobactam），替代 cefiderocol；MBL-producing：cefiderocol。',caution:'已確認新型 β-lactam 有活性時，不建議例行合併 aminoglycoside；MBL 時 ceftazidime-avibactam／ceftolozane-tazobactam／imipenem-relebactam 皆不建議。'},
@@ -37,7 +37,8 @@ const NHI_VER='第十節 抗微生物劑（115.07.23 更新）';
 const meds=[
 ['Meropenem / imipenem','ESBL 侵襲性感染（重症優先）；ertapenem-R、meropenem-S 非 carbapenemase CRE 延長輸注','10.5.1：培養證實對其他抗微生物製劑均抗藥而 carbapenem 感受性；或對其他藥物過敏；或嚴重感染經其他廣效非第一線藥物無法控制；或經感染症專科醫師會診（附會診紀錄）','CKD／HD／CRRT 需調整，留意神經毒性（imipenem 較高）'],
 ['Ertapenem','穩定 ESBL 感染；不涵蓋 Pseudomonas／Acinetobacter','10.5.2：限中重度感染且經其他藥物無法控制之複雜性腹腔內感染、感染性肺炎、急性骨盆感染；或經感染症專科醫師會診。⚠ cUTI 不在列舉適應症內','HD／CKD 需個別調整；高蛋白結合，低白蛋白重症不建議'],
-['Cefepime','AmpC（MIC ≤8 且無 ESBL）；具感受性的 P. aeruginosa','第十節無專屬條文；依 10.1 通則（非第一線藥物：培養／藥敏或 10.1.6 重症、院內感染、感染科會診等條件）','高度警覺腎衰竭相關神經毒性'],
+['Cefepime','AmpC（MIC ≤8 且無 ESBL）；具感受性的 P. aeruginosa；ESBL cUTI 與泌尿道以外感染不建議','第十節無專屬條文；依 10.1 通則（非第一線藥物：培養／藥敏或 10.1.6 重症、院內感染、感染科會診等條件）','高度警覺腎衰竭相關神經毒性'],
+['Cefepime-enmetazobactam','ESBL cUTI（TMP-SMX／FQ 不可用時，與 carbapenem 同等）；ESBL 泌尿道以外替代，臨床資料有限','本頁 2026-10-27 條文核對未包含此藥；台灣收載與健保給付待核實，不推定給付','須依腎功能／透析調整；留意 cefepime 神經毒性'],
 ['Ceftazidime-avibactam','KPC（次選）、OXA-48-like（首選）CRE；DTR-PA；搭配 aztreonam 處理 MBL','10.3.6：感染症專科醫師會診確認 CR-GNB 感染可能或明確證據；cIAI、cUTI、院內肺炎或其他疑 CR 感染；經驗使用後培養非 CR 限 7 天；不得超過 14 天（延長需再照會）','依腎功能／HD／CRRT 調整'],
 ['Ceftolozane-tazobactam','DTR P. aeruginosa（肺炎首選）；cIAI 需合併 metronidazole；KPC／MBL 不建議','10.3.7：18 歲以上、致病菌感受性；cIAI（併 metronidazole）、cUTI 含腎盂腎炎、院內肺炎含 VAP；需感染科醫師會診同意（附會診報告）','需按腎功能／透析調整'],
 ['Cefiderocol','MBL CRE（首選）；MBL DTR-PA（首選）；S. maltophilia（首選）；CRAB 合併／橋接','10.3.8（115/8/1 新增）：18 歲以上、對 cefiderocol 感受性之 MDR GNB；cUTI、HAP／VAP 或其他疑似／證實 MDR GNB 感染；感染科會診，每滿 7 天再會診，療程原則 ≤14 天','HD／CRRT 劑量須按實際清除條件；CrCl ≥120 需加量'],
@@ -72,11 +73,11 @@ const MDRO=(()=>{
 const grp=s=>s==='cystitis'?'uuti':s==='cuti'?'cuti':'out';
 const R={
 esbl(i){const g=grp(i.site),crit=i.sev!=='stable';
- if(g==='uuti')return{pref:['Nitrofurantoin','TMP-SMX','單劑 aminoglycoside'],alt:['口服 fosfomycin（僅 E. coli）'],avoid:[],notes:['IDSA 2026 另列 gepotidacin、pivmecillinam、sulopenem 為首選，台灣可取得性需確認。']};
- if(g==='cuti'&&!crit)return{pref:['TMP-SMX、ciprofloxacin 或 levofloxacin（確認 susceptible）','上述不可用時：ertapenem、meropenem 或 imipenem'],alt:['Aminoglycoside（每日一次）','Piperacillin-tazobactam（僅非重症、無菌血症）','IV fosfomycin'],avoid:['Nitrofurantoin、口服 fosfomycin（腎實質濃度不足）'],notes:[]};
- return{pref:[crit?'Meropenem 或 imipenem（重症／菌血症／低白蛋白優先）':'Ertapenem、meropenem 或 imipenem'],alt:[crit?'Ertapenem（穩定且白蛋白正常時）':'','臨床改善、感染源控制後依藥敏口服 TMP-SMX／ciprofloxacin／levofloxacin 降階'].filter(Boolean),avoid:['Piperacillin-tazobactam（即使報告 susceptible）','Nitrofurantoin、口服 fosfomycin'],notes:[]}},
+ if(g==='uuti')return{pref:['Nitrofurantoin','TMP-SMX','單劑 aminoglycoside'],alt:['口服 fosfomycin（僅 E. coli）','Fluoroquinolone、cefepime-enmetazobactam 或 carbapenem（僅在上述藥物皆不可用時；應保留給 cUTI 與侵襲性感染）'],avoid:[],notes:['IDSA 2026 另列 gepotidacin、pivmecillinam、sulopenem 為首選，台灣可取得性需確認。']};
+ if(g==='cuti'&&!crit)return{pref:['TMP-SMX、ciprofloxacin 或 levofloxacin（確認 susceptible）','上述不可用時：cefepime-enmetazobactam、ertapenem、meropenem 或 imipenem（IDSA 視為同等）'],alt:['Aminoglycoside（每日一次）','Piperacillin-tazobactam（僅非重症、無菌血症）','IV fosfomycin'],avoid:['Nitrofurantoin、口服 fosfomycin（腎實質濃度不足）','Cefepime 單藥（即使報告 susceptible）'],notes:[]};
+ return{pref:[crit?'Meropenem 或 imipenem（重症／菌血症／低白蛋白優先）':'Ertapenem、meropenem 或 imipenem'].concat(g==='cuti'?['Cefepime-enmetazobactam（cUTI 與 carbapenem 視為同等）']:[]),alt:[crit?'Ertapenem（穩定且白蛋白正常時）':'',g==='cuti'?'':'Cefepime-enmetazobactam（泌尿道以外之替代，臨床資料有限）','臨床改善、感染源控制後依藥敏口服 TMP-SMX／ciprofloxacin／levofloxacin 降階'].filter(Boolean),avoid:['Piperacillin-tazobactam（即使報告 susceptible）','Nitrofurantoin、口服 fosfomycin','Cefepime 單藥（即使報告 susceptible）'],notes:[]}},
 ampc(i){if(grp(i.site)==='uuti')return{pref:['Nitrofurantoin','TMP-SMX','Ciprofloxacin／levofloxacin','單劑 aminoglycoside'],alt:['Ceftriaxone（感受性時，單純膀胱炎可用）'],avoid:[],notes:[]};
- return{pref:['Cefepime（MIC ≤8 µg/mL 且未檢出 ESBL 基因）'],alt:['Carbapenem（cefepime 不適用、ESBL 共存或重症未改善時）','TMP-SMX／ciprofloxacin／levofloxacin（感受性時，口服降階）'],avoid:['Ceftriaxone／cefotaxime／ceftazidime（侵襲性感染；非重症已改善且已控源者完成療程或可接受）','Piperacillin-tazobactam（侵襲性感染）'],notes:['低風險菌種（S. marcescens、M. morganii、Providencia）臨床上較少誘導 AmpC，依藥敏選藥。']}},
+ return{pref:['Cefepime（MIC ≤8 µg/mL 且未檢出 ESBL 基因）'],alt:['Carbapenem（cefepime 不適用、ESBL 共存或重症未改善時）','Cefepime-enmetazobactam（保留給 ESBL 或 AmpC 與 ESBL 共存者）','TMP-SMX／ciprofloxacin／levofloxacin（感受性時，口服降階）'],avoid:['Ceftriaxone／cefotaxime／ceftazidime（侵襲性感染；非重症已改善且已控源者完成療程或可接受）','Piperacillin-tazobactam（侵襲性感染）'],notes:['低風險菌種（S. marcescens、M. morganii、Providencia）臨床上較少誘導 AmpC，依藥敏選藥。']}},
 cre(i){const g=grp(i.site),m=i.mech;let r;
  if(g==='uuti'){r={pref:['Ciprofloxacin／levofloxacin','TMP-SMX','Nitrofurantoin','單劑 aminoglycoside'],alt:['Colistin','Fosfomycin（僅 E. coli）'],avoid:[],notes:['CRE 對上述口服藥感受性常偏低，必須藥敏證實；其他選項皆不可用時才用 IV 新型藥物。']};
   if(m==='noncp')r.notes.push('Ertapenem-R、meropenem-S 非 carbapenemase CRE 之膀胱炎：標準輸注 meropenem／imipenem 亦合理。');return r}
@@ -190,7 +191,7 @@ const DEMO=[
  input:{clin:'confirmed',sev:'stable',site:'cuti',bug:'esbl',mech:'unknown',kidney:'ckd',susc:'confirmed'},
  expect:{pref:['TMP-SMX'],alt:['Piperacillin-tazobactam'],avoid:['Nitrofurantoin']},
  think:['有發燒與腰痛，是真正的 cUTI，不是無症狀菌尿。','臨床穩定、無菌血症：IDSA 2026 cUTI 首選是藥敏證實的 TMP-SMX 或 fluoroquinolone，carbapenem 留給這些藥不能用的情況。','Nitrofurantoin 報告 S 不算數：腎實質濃度不足，不適合腎盂腎炎。','本例 fluoroquinolone 皆 R，TMP-SMX 成為首選，但 CKD 合併 losartan 是高血鉀風險。'],
- plan:['TMP-SMX，依 CrCl 確認劑量；評估治療期間是否暫停 losartan。','第 2–3 天追蹤 K 與 creatinine；trimethoprim 會抑制 creatinine 分泌，須與真正腎功能惡化區分。','高血鉀或腎功能惡化使 TMP-SMX 無法續用時，改 carbapenem。'],
+ plan:['TMP-SMX，依 CrCl 確認劑量；評估治療期間是否暫停 losartan。','第 2–3 天追蹤 K 與 creatinine；trimethoprim 會抑制 creatinine 分泌，須與真正腎功能惡化區分。','高血鉀或腎功能惡化使 TMP-SMX 無法續用時，改 carbapenem；IDSA 視 cefepime-enmetazobactam 為同等選項，但台灣收載待核實。'],
  nhi:'Ertapenem 10.5.2 列舉適應症不含 cUTI，須符合「經感染症專科醫師會診」等路徑；TMP-SMX 第十節無專屬條文。',cite:[['Ertapenem','10.5.2']],
  course:'第 3 天退燒，K 5.1 mmol/L，暫停 losartan 後穩定，完成 TMP-SMX 療程。',
  pearl:'ESBL 不等於一定要 carbapenem：部位與嚴重度先決定選藥層級。'},
@@ -256,7 +257,7 @@ left:[
  {t:'5. 菌種與機制',k:[{b:'AmpC 中度風險',d:'E. cloacae complex、K. aerogenes、C. freundii、H. alvei'},{b:'CRE 分型',d:'KPC、MBL（NDM／VIM／IMP）、OXA-48-like、非 carbapenemase；機制決定用藥'},{b:'必看 MIC',d:'Cefepime ≤8 µg/mL；vancomycin AUC 400–600；daptomycin E. faecium SDD'}]}
 ],
 right:[
- {t:'ESBL-E',k:[{b:'膀胱炎',d:'Nitrofurantoin、TMP-SMX、單劑 aminoglycoside'},{b:'穩定 cUTI',d:'TMP-SMX、ciprofloxacin、levofloxacin（藥敏證實）；不可用時 carbapenem'},{b:'泌尿道以外',d:'Ertapenem、meropenem、imipenem；重症優先後兩者'},{b:'避免',w:1,d:'Piperacillin-tazobactam 用於泌尿道以外（即使報告 S）'}]},
+ {t:'ESBL-E',k:[{b:'膀胱炎',d:'Nitrofurantoin、TMP-SMX、單劑 aminoglycoside'},{b:'穩定 cUTI',d:'TMP-SMX、ciprofloxacin、levofloxacin（藥敏證實）；不可用時 cefepime-enmetazobactam 或 carbapenem'},{b:'泌尿道以外',d:'Ertapenem、meropenem、imipenem；重症優先後兩者；cefepime-enmetazobactam 為替代'},{b:'避免',w:1,d:'Piperacillin-tazobactam 用於泌尿道以外；cefepime 單藥用於 cUTI 與泌尿道以外（即使報告 S）'}]},
  {t:'AmpC-E',k:[{b:'侵襲性',d:'Cefepime（MIC ≤8 且未檢出 ESBL 基因）；否則 carbapenem'},{b:'避免',w:1,d:'Ceftriaxone、cefotaxime、ceftazidime、piperacillin-tazobactam'}]},
  {t:'CRE',k:[{b:'KPC',d:'Meropenem-vaborbactam（略優先）、ceftazidime-avibactam、imipenem-relebactam'},{b:'MBL（NDM 等）',d:'Aztreonam-avibactam（略優先）、cefiderocol；或 ceftazidime-avibactam + aztreonam'},{b:'OXA-48-like',d:'Ceftazidime-avibactam；避免 meropenem-vaborbactam、imipenem-relebactam'},{b:'非 carbapenemase',d:'Ertapenem-R、meropenem-S：延長輸注 meropenem 或 imipenem'},{b:'未分型',w:1,d:'先送檢；不可假設 ceftazidime-avibactam 必然有效（不涵蓋 MBL）'}]},
  {t:'DTR-PA',k:[{b:'肺炎',d:'Ceftolozane-tazobactam 首選'},{b:'其他部位',d:'Ceftazidime-avibactam、ceftolozane-tazobactam、imipenem-relebactam'},{b:'MBL',d:'Cefiderocol'},{b:'避免',w:1,d:'新型 β-lactam 有活性時，例行合併 aminoglycoside／polymyxin'}]},
@@ -265,7 +266,7 @@ right:[
  {t:'MRSA',k:[{b:'菌血症',d:'Vancomycin（AUC 400–600）或 daptomycin；評估心內膜炎、移除導管'},{b:'肺炎',d:'Vancomycin 或 linezolid；不用 daptomycin'},{b:'皮膚軟組織',d:'膿瘍切開引流為主；口服 TMP-SMX 或 doxycycline'}]},
  {t:'VRE',k:[{b:'菌血症',d:'高劑量 daptomycin（8–12 mg/kg）或 linezolid'},{b:'肺炎',d:'Linezolid'},{b:'膀胱炎',d:'Nitrofurantoin、fosfomycin；ampicillin S 時 amoxicillin／ampicillin'}]},
  {t:'腎臟與透析',k:[{b:'CKD／AKI',d:'依 Cockcroft–Gault CrCl 動態調整；首劑通常不減'},{b:'HD',d:'透析日於透析後給藥；cefepime 留意神經毒性'},{b:'PD',d:'系統性與腹膜內用藥分開考量；腹膜炎依 ISPD'},{b:'CRRT',d:'依 effluent rate、濾器、殘餘腎功能調整'}]},
- {t:'健保與重評估',k:[{b:'會診條文',d:'CZA 10.3.6、C/T 10.3.7、cefiderocol 10.3.8、IMR 10.5.4'},{b:'無專屬條文',w:1,d:'Meropenem-vaborbactam、aztreonam-avibactam、sulbactam-durlobactam、eravacycline：不推定給付'},{b:'48–72 小時',d:'看治療反應、藥敏與感染源控制，降階並決定療程'}]}
+ {t:'健保與重評估',k:[{b:'會診條文',d:'CZA 10.3.6、C/T 10.3.7、cefiderocol 10.3.8、IMR 10.5.4'},{b:'無專屬條文',w:1,d:'Meropenem-vaborbactam、aztreonam-avibactam、sulbactam-durlobactam、eravacycline：不推定給付'},{b:'尚未核對條文',w:1,d:'Cefepime-enmetazobactam：不推定給付'},{b:'48–72 小時',d:'看治療反應、藥敏與感染源控制，降階並決定療程'}]}
 ]};
 /*MAP-END*/
 const LV=(id,v)=>{const o=[...$(id).options].find(x=>x.value===v);return o?o.text:v};
